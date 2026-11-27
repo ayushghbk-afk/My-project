@@ -1,0 +1,73 @@
+name: Deploy to GitHub Pages
+
+# Publishes the site when Pages is configured with the "GitHub Actions" source.
+# If Pages is disabled (or publishing from a branch), the job exits successfully
+# with a notice instead of failing — branch-based Pages needs no workflow at all.
+on:
+  push:
+    branches: [arena/51dba1e4-my-project]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check Pages configuration
+        id: pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          build_type=$(gh api "repos/${GITHUB_REPOSITORY}/pages" --jq '.build_type // empty' 2>/dev/null || true)
+          if [ "$build_type" = "workflow" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+            echo "Pages source is GitHub Actions — deploying."
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Pages not configured::Pages source is '${build_type:-disabled}', not GitHub Actions. Skipping deploy. Enable it under Settings > Pages > Build and deployment (or publish from the branch directly)."
+          fi
+
+      - name: Checkout
+        if: steps.pages.outputs.enabled == 'true'
+        uses: actions/checkout@v4
+
+      - name: Configure Pages
+        if: steps.pages.outputs.enabled == 'true'
+        uses: actions/configure-pages@v5
+        with:
+          enablement: false
+
+      - name: Assemble static site
+        if: steps.pages.outputs.enabled == 'true'
+        run: |
+          mkdir -p _site
+          rsync -a \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='_site/' \
+            --exclude='*.zip' \
+            --exclude='node_modules/' \
+            ./ _site/
+          touch _site/.nojekyll
+
+      - name: Upload Pages artifact
+        if: steps.pages.outputs.enabled == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        if: steps.pages.outputs.enabled == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4

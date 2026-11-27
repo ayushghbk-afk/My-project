@@ -8,10 +8,6 @@ Zero build step required — pure HTML, CSS, and ES modules.
   <img src="./assets/demo.gif" alt="Portfolio Demo Reel" width="340" />
 </p>
 
-<p align="center">
-  <a href="./assets/demo.mp4">Watch full HD video (<code>assets/demo.mp4</code>)</a>
-</p>
-
 | Intro & Code Wall | Interactive Editor |
 | :---: | :---: |
 | <img src="./assets/preview-1.png" alt="Intro & Code Wall" width="420" /> | <img src="./assets/preview-2.png" alt="Interactive Editor" width="420" /> |
@@ -30,6 +26,8 @@ Zero build step required — pure HTML, CSS, and ES modules.
    python3 serve.py
    ```
    Open `http://localhost:8767/` (intro) and `http://localhost:8767/site/` (editor).
+   The server binds `0.0.0.0` so it also works behind a proxied preview host; use
+   `HOST=127.0.0.1` to keep it local-only, and `PORT=9000` (or `python3 serve.py 9000`) for another port.
 
 ---
 
@@ -80,4 +78,24 @@ node scripts/build-data.mjs --fetch-github
 
 ## Deploy
 
-This is a static site. Deploy the root directory directly to **GitHub Pages**, **Vercel**, **Netlify**, or **Cloudflare Pages** with no build command needed.
+This is a static site with no build step — deploy the root directory directly to **GitHub Pages**, **Vercel**, **Netlify**, or **Cloudflare Pages**.
+
+### GitHub Pages
+
+Everything needed for Pages is in the repo, including `.nojekyll` (publish files verbatim,
+no Jekyll build) and `.github/workflows/pages.yml`. **Enabling Pages is a one-time repo-admin
+step** — it needs `administration:write` + `pages:write`, which CI tokens here don't have:
+
+1. Open <https://github.com/ayushghbk-afk/My-project/settings/pages>.
+2. Under **Build and deployment → Source**, pick either:
+   - **Deploy from a branch** (simplest): branch `arena/51dba1e4-my-project`, folder `/ (root)`.
+     No workflow needed; the pushed branch is published as-is.
+   - **GitHub Actions**: the `Deploy to GitHub Pages` workflow then publishes automatically on
+     the next push (or run it manually from the Actions tab).
+3. Save. Within a minute the site is at
+   <https://ayushghbk-afk.github.io/My-project/> (intro) and
+   <https://ayushghbk-afk.github.io/My-project/site/> (editor).
+
+All asset URLs are relative (not root-absolute), so the same files work at `/` with
+`python3 serve.py` and under the `/My-project/` project-site subpath. If you fork or rename the
+repo, keep those relative paths.
