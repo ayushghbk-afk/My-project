@@ -80,12 +80,22 @@ node scripts/build-data.mjs --fetch-github
 
 This is a static site with no build step — deploy the root directory directly to **GitHub Pages**, **Vercel**, **Netlify**, or **Cloudflare Pages**.
 
-GitHub Pages is configured on this repo with the legacy (branch) source: branch
-`arena/51dba1e4-my-project`, path `/`. The live site is
-<https://ayushghbk-afk.github.io/My-project/> (intro) and
-<https://ayushghbk-afk.github.io/My-project/site/> (editor). `.nojekyll` tells Pages to
-publish the files verbatim.
+### GitHub Pages
+
+Everything needed for Pages is in the repo, including `.nojekyll` (publish files verbatim,
+no Jekyll build) and `.github/workflows/pages.yml`. **Enabling Pages is a one-time repo-admin
+step** — it needs `administration:write` + `pages:write`, which CI tokens here don't have:
+
+1. Open <https://github.com/ayushghbk-afk/My-project/settings/pages>.
+2. Under **Build and deployment → Source**, pick either:
+   - **Deploy from a branch** (simplest): branch `arena/51dba1e4-my-project`, folder `/ (root)`.
+     No workflow needed; the pushed branch is published as-is.
+   - **GitHub Actions**: the `Deploy to GitHub Pages` workflow then publishes automatically on
+     the next push (or run it manually from the Actions tab).
+3. Save. Within a minute the site is at
+   <https://ayushghbk-afk.github.io/My-project/> (intro) and
+   <https://ayushghbk-afk.github.io/My-project/site/> (editor).
 
 All asset URLs are relative (not root-absolute), so the same files work at `/` with
-`python3 serve.py` and under the `/My-project/` project-site subpath. If you fork/rename the
+`python3 serve.py` and under the `/My-project/` project-site subpath. If you fork or rename the
 repo, keep those relative paths.
