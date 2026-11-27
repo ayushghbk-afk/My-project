@@ -24,7 +24,7 @@ class NoCache(SimpleHTTPRequestHandler):
     def do_POST(self):
         # The intro/editor fire a best-effort "seen" beacon. A static host has no
         # backend for it, so acknowledge it locally instead of returning 501.
-        if self.path.split("?")[0] == "/api/seen":
+        if self.path.split("?")[0].endswith("/api/seen"):
             self.send_response(204)
             self.send_header("Content-Length", "0")
             self.end_headers()

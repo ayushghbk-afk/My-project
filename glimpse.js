@@ -1,4 +1,4 @@
-import { prefersStill, onWidthResize, rng } from "/intros/shared/common.js";
+import { prefersStill, onWidthResize, rng } from "./intros/shared/common.js";
 
 const FONT_PX = 12;
 const CELL_W = 7.2;
@@ -4193,7 +4193,7 @@ function markSeen() {
     timer = setTimeout(() => {
       if (document.hidden) return;
       document.removeEventListener("visibilitychange", arm);
-      navigator.sendBeacon?.("/api/seen");
+      navigator.sendBeacon?.("./api/seen");
     }, 1000);
   };
   document.addEventListener("visibilitychange", arm);

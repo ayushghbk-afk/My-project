@@ -78,4 +78,14 @@ node scripts/build-data.mjs --fetch-github
 
 ## Deploy
 
-This is a static site. Deploy the root directory directly to **GitHub Pages**, **Vercel**, **Netlify**, or **Cloudflare Pages** with no build command needed.
+This is a static site with no build step — deploy the root directory directly to **GitHub Pages**, **Vercel**, **Netlify**, or **Cloudflare Pages**.
+
+GitHub Pages is configured on this repo with the legacy (branch) source: branch
+`arena/51dba1e4-my-project`, path `/`. The live site is
+<https://ayushghbk-afk.github.io/My-project/> (intro) and
+<https://ayushghbk-afk.github.io/My-project/site/> (editor). `.nojekyll` tells Pages to
+publish the files verbatim.
+
+All asset URLs are relative (not root-absolute), so the same files work at `/` with
+`python3 serve.py` and under the `/My-project/` project-site subpath. If you fork/rename the
+repo, keep those relative paths.

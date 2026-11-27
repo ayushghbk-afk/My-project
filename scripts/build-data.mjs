@@ -132,7 +132,9 @@ const themes = palettes.map((t) => ({
   slug: slug(t.name),
   name: t.name,
   description: t.description,
-  image: `/site/assets/themes/${slug(t.name)}.svg`,
+  // Relative to /site/ (where themes.json is consumed) so the site also works
+  // when served from a subpath such as GitHub Pages project sites.
+  image: `assets/themes/${slug(t.name)}.svg`,
   palette: t.ansi.slice(0, 8),
   repo: `https://github.com/${OWNER}`,
   included: true,
