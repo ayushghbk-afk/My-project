@@ -1,11 +1,11 @@
 {
   "identity": {
-    "name": "Alex Rivera",
+    "name": "mrhackerdon",
     "barTitle": "ALEX RIVERA",
     "terminalUser": "alex",
     "domain": "alexrivera.dev",
     "tagline": "systems, developer tools, open source.",
-    "github": "alexrivera",
+    "github": "ayushghbk-afk",
     "storagePrefix": "portfolio"
   },
   "about": {
@@ -15,28 +15,28 @@
   "links": [
     {
       "label": "Email",
-      "url": "mailto:hello@alexrivera.dev"
+      "url": "mailto:mrhackerdon808@gmail.com"
     },
     {
       "label": "GitHub",
-      "url": "https://github.com/alexrivera"
+      "url": "https://github.com/ayushghbk-afk"
     },
     {
       "label": "LinkedIn",
-      "url": "https://www.linkedin.com/in/alexrivera"
+      "url": "https://www.linkedin.com/"
     },
     {
       "label": "X / Twitter",
-      "url": "https://x.com/alexrivera"
+      "url": "https://x.com/"
     },
     {
       "label": "Blog",
-      "url": "https://alexrivera.dev/blog"
+      "url": ""
     }
   ],
   "work": [
     {
-      "when": "06/2024 – present",
+      "when": "11/2026 – present",
       "title": "Senior Systems Engineer",
       "org": "CloudScale",
       "where": "San Francisco · Hybrid",
