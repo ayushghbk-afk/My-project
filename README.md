@@ -8,10 +8,6 @@ Zero build step required — pure HTML, CSS, and ES modules.
   <img src="./assets/demo.gif" alt="Portfolio Demo Reel" width="340" />
 </p>
 
-<p align="center">
-  <a href="./assets/demo.mp4">Watch full HD video (<code>assets/demo.mp4</code>)</a>
-</p>
-
 | Intro & Code Wall | Interactive Editor |
 | :---: | :---: |
 | <img src="./assets/preview-1.png" alt="Intro & Code Wall" width="420" /> | <img src="./assets/preview-2.png" alt="Interactive Editor" width="420" /> |
@@ -30,6 +26,8 @@ Zero build step required — pure HTML, CSS, and ES modules.
    python3 serve.py
    ```
    Open `http://localhost:8767/` (intro) and `http://localhost:8767/site/` (editor).
+   The server binds `0.0.0.0` so it also works behind a proxied preview host; use
+   `HOST=127.0.0.1` to keep it local-only, and `PORT=9000` (or `python3 serve.py 9000`) for another port.
 
 ---
 
